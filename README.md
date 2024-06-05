@@ -17,7 +17,7 @@ The "funny" feature of MAGI is rejection of the standard library and the standar
 - Still in development
 
 ## Links
-- Snaky example -> [here](examples/snaky.js)
+- Snaky example -> [here](./examples/snaky.js)
 - Small tutorial -> WIP
 - API documentation -> WIP
 - Suggestions and bugs -> [here]()
