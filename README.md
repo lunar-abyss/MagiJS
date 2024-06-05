@@ -20,6 +20,6 @@ The "funny" feature of MAGI is rejection of the standard library and the standar
 - Snaky example -> [here](./examples/snaky.html)
 - Small tutorial -> WIP
 - API documentation -> WIP
-- Suggestions and bugs -> ?
+- Suggestions and bugs -> [issues](https://github.com/lunar-abyss/MagiJS/issues)
 
 ***Lunaryss © 2024***
