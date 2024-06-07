@@ -24,6 +24,7 @@ global.game =
     player: { x: 2, y: 10, level: 1 },
     stars: [],
     bullets: [],
+    enemies: [],
 
     // loop
     loop: () => {
