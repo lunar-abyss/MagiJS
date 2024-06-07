@@ -8,11 +8,11 @@
         Math: Math,
         console: console,
         document: document,
-        Array: Array.prototype,
         setTimeout: setTimeout.bind(global),
         requestAnimationFrame: requestAnimationFrame,
         Promise: Promise,
         Date: Date,
+        Array: Array,
         AudioContext: AudioContext,
         GainNode: GainNode,
         OscillatorNode: OscillatorNode,
@@ -22,7 +22,7 @@
     };
 
     // deletes all properties from an object
-    const destroy = (obj, except = []) => $.Object
+    const destroy = (obj, except = []) => Object
         .getOwnPropertyNames(obj)
         .forEach(prop => {
             if (!except.includes(prop))
@@ -35,58 +35,19 @@
     destroy(Number.prototype);
     destroy(Promise.prototype);
     destroy(BigInt.prototype);
+    destroy(Array.prototype, [ "includes", "forEach", "indexOf", "pop", "push", "reverse", "slice" ]);
     destroy(global, ["onload", "onkeydown", "onkeyup"]);
+
+    // this can't be destroyed
+    delete $.Array.prototype.includes;
+    delete $.Array.prototype.forEach;
 
 
 // PROTOTYPES
 
     /* array */ {
-        
-        // rename
-        $.Array.each = $.Array.forEach;
-        $.Array.has = $.Array.includes;
-        $.Array.reverse = $.Array.toReversed;
-        $.Array.sort = $.Array.toSorted;
-        $.Array.splice = $.Array.toSpliced;
-
-        // reserve
-        const find = $.Array.find;
-        const findi = $.Array.findIndex;
-        const findl = $.Array.findLast;
-        const findli = $.Array.findLastIndex;
-
-        // full find method
-        $.Array.find = function(method, fn) {
-            return method == "i" ? findi.call(this, fn) :
-                   method == "l" ? findl.call(this, fn) :
-                   method == "li" ? findli.call(this, fn) :
-                        find.call(this, fn);
-        }
-        
-        // deleting
-        delete $.Array.copyWithin;
-        delete $.Array.entries;
-        delete $.Array.fill;
-        delete $.Array.findIndex;
-        delete $.Array.findLast;
-        delete $.Array.findLastIndex;
-        delete $.Array.flat;
-        delete $.Array.flatMap;
-        delete $.Array.includes;
-        delete $.Array.forEach;
-        delete $.Array.indexOf;
-        delete $.Array.join;
-        delete $.Array.keys;
-        delete $.Array.lastIndexOf;
-        delete $.Array.reduceRight;
-        delete $.Array.toLocaleString
-        delete $.Array.toReversed
-        delete $.Array.toSorted
-        delete $.Array.toSpliced
-        delete $.Array.toString
-        delete $.Array.values
-        delete $.Array.with
-        delete $.Array.constructor
+        $.Array.prototype.index = $.Array.prototype.indexOf;
+        delete $.Array.prototype.indexOf;
     }
 
 
@@ -267,8 +228,7 @@
         any: false
     };
 
-
-// ENUMS
+// OTHER
 
     // from https://lospec.com/palette-list
     const palettes = [
@@ -292,7 +252,6 @@
     const assert = (value, message) =>
         (!value) ? $.console.error(message) : 0;
 
-    // set prototype
     const inherit = (obj, parent) =>
         $.Object.setPrototypeOf(obj, parent);
 
@@ -352,12 +311,6 @@
                 [[160, 144], [128, 128], [96, 80], [84, 48],
                 [64, 64], [32, 28], [16, 16]]
                     [game.mode ?? 2];
-
-        // set canvas color
-        canvas.clear(0);
-
-        // set page title
-        $.document.title = game.title ?? $.document.title;
                     
         // add to body
         $.document.body.appendChild(element);
@@ -387,7 +340,7 @@
     }
 
     // handling events
-    global.onkeydown = global.onkeyup = e => key[match(e.code, {
+    onkeydown = onkeyup = e => key[match(e.code, {
         "ArrowLeft": "left",
         "ArrowRight": "right",
         "ArrowUp": "up",

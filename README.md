@@ -22,4 +22,8 @@ The "funny" feature of MAGI is rejection of the standard library and the standar
 - API documentation -> [here]()
 - Suggestions and bugs -> [here]()
 
+## Versions
+- **1.0** - First version
+- **1.01** - Arrays update
+
 ***Lunaryss © 2024***
